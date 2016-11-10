@@ -20,7 +20,13 @@ public class PhotoController {
 			System.out.println(navigate);
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("index.jsp");
-			mv.addObject("photo", dao.getPhotobyIndex(navigate));
+			try{
+				mv.addObject("photo", dao.getPhotobyIndex(navigate));
+			}
+			catch (Exception e){
+			    System.out.println("list empty");
+			}
+		
 			return mv;
 
 	}
@@ -39,15 +45,26 @@ public class PhotoController {
 		
 		@RequestMapping("deletePhoto.do")
 		  public ModelAndView deletePhoto(Photo photo, Photo photo1, @RequestParam("index") String index) {
-			int indx=Integer.parseInt(index); 
-			dao.deletePhoto(indx);
+			
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("index.jsp");
-			if (!dao.getPhotos().isEmpty()){
-			mv.addObject("photo", dao.getPhotobyIndex("back"));
-			}else{ mv.addObject("photo", photo1);}
+			try
+			{
+				int indx=Integer.parseInt(index); 
+				dao.deletePhoto(indx);
+				mv.addObject("photo", dao.getPhotobyIndex("back"));
+			}
+			catch (Exception e){
+			    System.out.println("list empty");
+			  
+			    mv.addObject("photo", photo1);
+			}
 			return mv;
+			}
+			
+			
+		
 
 }
 		
-}
+

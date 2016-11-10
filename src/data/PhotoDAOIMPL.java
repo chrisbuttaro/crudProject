@@ -24,6 +24,7 @@ public class PhotoDAOIMPL implements PhotoDAO {
 	public void init() {
 		
 	
+	
 		try (
 		        InputStream is = wac.getServletContext().getResourceAsStream(FILE_NAME);
 		        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
