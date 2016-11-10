@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Photos</title>
 </head>
 <body>
 <h3>Photos</h3>
@@ -14,14 +14,19 @@
 	<button name="navigate" value="forward">Forward</button>
 </form>
 
+
+
+   
+
 <c:choose>
-    <c:when test="${! empty photos}">
-        ${photo.imgURL}
+    <c:when test="${! empty photo}">
+      <img src= "${photo.imgURL}">
        </c:when>
     <c:otherwise>
-      <p>No Photo Found</p>
+      <p>No photo found</p>
     </c:otherwise>
   </c:choose>
+
 </body>
 
 

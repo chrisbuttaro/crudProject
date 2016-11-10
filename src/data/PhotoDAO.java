@@ -2,6 +2,6 @@ package data;
 
 public interface PhotoDAO {
 	
-	public Photo getPhotobyIndex(int count);
+	public Photo getPhotobyIndex(String s);
 
 }
