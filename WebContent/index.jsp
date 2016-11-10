@@ -14,6 +14,14 @@
 	<button name="navigate" value="forward">Forward</button>
 </form>
 
+<a href="addPhoto.html">Add Image</a>
+
+<form action="deletePhoto.do" method="GET">
+	<button name="index" value="${photo.index}">Remove Image</button>
+</form>
+
+
+
 
 
    

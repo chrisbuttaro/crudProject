@@ -44,13 +44,36 @@ public class PhotoDAOIMPL implements PhotoDAO {
 }
 	
 public Photo getPhotobyIndex(String navigate) {
-		System.out.println("got here");
+
 			switch(navigate){
 			case "back": index--; break;
-			case "forward": index++; break;
-			}
+			case "forward": index++; break;}
+			
+			if(index>photos.size()-1) {index=0;}
+			else if (index<-0) {index=photos.size()-1;}
 			
 		return photos.get(index);
 }
+
+public void addPhoto(Photo p){
+	photos.add(p); 
+	index=photos.indexOf(p); 
+	System.out.println(photos.size());
+	
+}
+
+@Override
+public void deletePhoto(int index) {
+	
+	photos.remove(index); 
+	
+	
+}
+
+public List<Photo> getPhotos() {
+	return photos;
+}
+
+
 	
 }
