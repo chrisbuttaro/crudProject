@@ -29,8 +29,9 @@ public class PhotoDAOIMPL implements PhotoDAO {
 	@PostConstruct
 	public void init() {
 		
+
+		path=wac.getServletContext().getRealPath("/WEB-INF/myDIR/imgData.csv"); 
 		
-		path="/Users/christopher/eclipse/jee-neon/Eclipse.app/Contents/MacOS/data.csv"; 
 		
 		System.out.println(path);
 
