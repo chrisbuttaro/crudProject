@@ -8,4 +8,5 @@ public interface PhotoDAO {
 	public void addPhoto(Photo p); 
 	public void deletePhoto(int index); 
 	public List<Photo> getPhotos(); 
+	public Photo updatePhoto(Photo p, String URL, int index);
 }

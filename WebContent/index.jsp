@@ -21,19 +21,28 @@
 </form>
 
 
-
-
-
-   
-
 <c:choose>
     <c:when test="${! empty photo}">
+    <h3>${photo.index}</h3>
       <img src= "${photo.imgURL}">
+      
        </c:when>
     <c:otherwise>
       <p>No photo found</p>
     </c:otherwise>
   </c:choose>
+  
+  </form>
+
+<a href="addPhoto.html">Add Image</a>
+
+<form action="updatePhoto.do" method="GET">
+	Edit Current Image<br />
+	
+	<input type="hidden" name="index" value="${photo.index}">
+	Enter New URL: <input type="text" name="URL"><br>
+	<input type="submit">
+</form>
 
 </body>
 

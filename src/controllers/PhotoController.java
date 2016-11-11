@@ -62,7 +62,14 @@ public class PhotoController {
 			return mv;
 			}
 			
-			
+		@RequestMapping("updatePhoto.do")
+		  public ModelAndView updatePhoto(Photo p, @RequestParam("URL") String URL, @RequestParam("index") String index) {
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("index.jsp");
+			mv.addObject("photo", dao.updatePhoto(p, URL, Integer.parseInt(index)));
+			return mv;
+
+}
 		
 
 }
