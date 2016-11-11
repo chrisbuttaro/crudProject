@@ -15,140 +15,121 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
 public class PhotoDAOIMPL implements PhotoDAO {
-	
+
 	private List<Photo> photos = new ArrayList<>();
-	int index=-1; 
-	String path; 
-	int count; 
-	PrintWriter pw = null;
-	File file=new File("NewData.csv");
-	
-    
-	
-	
+	int index = -1;
+	int count;
+	File file;
+	String path;
+	PrintWriter pw;
+
 	@Autowired
 	private WebApplicationContext wac;
 
 	@PostConstruct
 	public void init() {
 		
-		System.out.println("before first");
-		 path =file.getAbsolutePath(); 
 		
+		path="/Users/christopher/eclipse/jee-neon/Eclipse.app/Contents/MacOS/data.csv"; 
+		
+		System.out.println(path);
+
 		try (
-				
-				 InputStream is =new FileInputStream(path);
-	
-		        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-		      ) {
-			
-			
+
+				InputStream is = new FileInputStream(path);
+
+				BufferedReader buf = new BufferedReader(new InputStreamReader(is));) {
+
 			String line = buf.readLine();
-			System.out.println(line);
+			System.out.println("line: " + line);
 			String[] tokens = line.split(",");
 			for (String string : tokens) {
-				if(string.startsWith("h")){
-				photos.add(new Photo(string, count++));
+				if (string.startsWith("h")) {
+					photos.add(new Photo(string, count++));
 				}
 			}
-				
-					
-			} catch (Exception e) {	
-				
-				System.out.println("saved file "+e);
-				
-			}	
-			
+
+		} catch (Exception e) {
+
+			System.out.println("saved file " + e);
+
+		}
+
 		System.out.println("before second");
-		
-		
-}
-	
-public Photo getPhotobyIndex(String navigate) {
 
-			switch(navigate){
-			case "back": index--; break;
-			case "forward": index++; break;}
-			
-			if(index>photos.size()-1) {index=0;}
-			else if (index<0) {index=photos.size()-1;}
-			
+	}
+
+	public Photo getPhotobyIndex(String navigate) {
+
+		switch (navigate) {
+		case "back":
+			index--;
+			break;
+		case "forward":
+			index++;
+			break;
+		}
+
+		if (index > photos.size() - 1) {
+			index = 0;
+		} else if (index < 0) {
+			index = photos.size() - 1;
+		}
+
 		return photos.get(index);
-}
-
-public void addPhoto(Photo p){
-	photos.add(p); 
-	index=photos.indexOf(p); 
-	System.out.println(photos.size());
-	
-	
-	try {
-	    pw = new PrintWriter(file);
-	    path = file.getAbsolutePath();
-	 System.out.println(path);
-	} catch (FileNotFoundException e) {
-	    System.out.println(e);
 	}
-	for (Photo photo : photos) {
-		pw.write(photo.getImgURL()+",");
-	}
-	
-	
-	pw.close();
-	System.out.println("done!");
-	}
-	
 
-	
+	public void addPhoto(Photo p) {
+		photos.add(p);
+		index = photos.indexOf(p);
 
-
-@Override
-public void deletePhoto(int index) {
-	
-	photos.remove(index); 
-	
-	
-	try {
-	    pw = new PrintWriter(file);
-	    path = file.getAbsolutePath();
-	 System.out.println(path);
-	} catch (FileNotFoundException e) {
-	    System.out.println(e);
-	}
-	for (Photo photo : photos) {
-		pw.write(photo.getImgURL()+",");
-	}
-	
-	
-	pw.close();
-	
-	
-}
-
-public List<Photo> getPhotos() {
-	return photos;
-}
-
-public Photo updatePhoto(Photo p, String URL, int index){
-	System.out.println(index);
-			p.setImgURL(URL);
-			photos.set(index,p);
-			this.index=index; 
+		try {
 			
+			pw = new PrintWriter(path);
 			
-			try {
-			    pw = new PrintWriter(file);
-			    path = file.getAbsolutePath();
-			 System.out.println(path);
-			} catch (FileNotFoundException e) {
-			    System.out.println(e);
-			}
-			for (Photo photo : photos) {
-				pw.write(photo.getImgURL()+",");
-			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		}
+		for (Photo photo : photos) {
+			pw.write(photo.getImgURL() + ",");
+		}
+		pw.close();
+	}
 
-	return p; 
-}//updatePhoto
+	@Override
+	public void deletePhoto(int index) {
+
+		photos.remove(index);
+
+		for (Photo photo : photos) {
+			pw.write(photo.getImgURL() + ",");
+		}
+
+	}
+
+	public List<Photo> getPhotos() {
+		return photos;
+	}
+
+	public Photo updatePhoto(Photo p, String URL, int index) {
+		System.out.println(index);
+		p.setImgURL(URL);
+		photos.set(index, p);
+		this.index = index;
+
+		try {
 			
-}//endclass		
+			pw = new PrintWriter(path);
 			
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		}
+		pw.close();
+		for (Photo photo : photos) {
+			pw.write(photo.getImgURL() + ",");
+		}
+
+		return p;
+	}// updatePhoto
+
+}// endclass
