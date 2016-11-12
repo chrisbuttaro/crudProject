@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.SynchronousQueue;
 
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ import org.springframework.web.context.WebApplicationContext;
 public class PhotoDAOIMPL implements PhotoDAO {
 
 	private List<Photo> photos = new ArrayList<>();
-	int index = -1;
-	int count;
-	File file;
+	int index = 0;
+	
+	File photoList;
 	String path;
 	PrintWriter pw;
 
@@ -29,11 +30,15 @@ public class PhotoDAOIMPL implements PhotoDAO {
 	@PostConstruct
 	public void init() {
 		
-
-		path=wac.getServletContext().getRealPath("/WEB-INF/myDIR/imgData.csv"); 
 		
-		
+		//if(!photoList.exists()){
+		photoList= new File(wac.getServletContext().getRealPath("/WEB-INF/photoDir/photoList.csv")); 
+		//}
+		path=photoList.getAbsolutePath(); 
+		System.out.println("*************************PATH*********************");		
 		System.out.println(path);
+		
+		//System.out.println("path:"+path);
 
 		try (
 
@@ -41,24 +46,38 @@ public class PhotoDAOIMPL implements PhotoDAO {
 
 				BufferedReader buf = new BufferedReader(new InputStreamReader(is));) {
 
-			String line = buf.readLine();
-			System.out.println("line: " + line);
-			String[] tokens = line.split(",");
-			for (String string : tokens) {
-				if (string.startsWith("h")) {
-					photos.add(new Photo(string, count++));
+			String line = "";
+			
+			//System.out.println("line: " + line);
+			
+			while ((line = buf.readLine()) != null) {
+				System.out.println("*************************LINE*********************");
+				System.out.println(line);
+				String[] tokens = line.split(",");
+				String url=tokens[0]; 
+				System.out.println("*****************************TOKENS***************************");
+				System.out.println(tokens.length);
+				for (String string : tokens) {
+					System.out.println("url:" + string);
 				}
+				if (url.startsWith("h")) {
+				photos.add(new Photo(url, index++));
+				index=-1; 
+			   }
 			}
-
-		} catch (Exception e) {
+			
+			System.out.println("after loop");
+			
+			} catch (Exception e) {
 
 			System.out.println("saved file " + e);
 
-		}
-
-		System.out.println("before second");
-
+			}
 	}
+
+		
+
+	
 
 	public Photo getPhotobyIndex(String navigate) {
 
@@ -71,12 +90,13 @@ public class PhotoDAOIMPL implements PhotoDAO {
 			break;
 		}
 
-		if (index > photos.size() - 1) {
-			index = 0;
-		} else if (index < 0) {
-			index = photos.size() - 1;
-		}
-
+//		if (index > photos.size() - 1) {
+//			index = 0;
+//		} else if (index < 0) {
+//			index = photos.size() - 1;
+//		}
+		System.out.println("******************************PHOTOBYINDEX***********************");
+		System.out.println(photos.get(index).imgURL);
 		return photos.get(index);
 	}
 
