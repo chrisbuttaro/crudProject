@@ -4,19 +4,23 @@ public class Photo {
 	public Photo(){
 		
 	}
-
-	public Photo(String imgURL, int count){
-		this.index=count;
+	int index; 
+	String imgURL;
+	public Photo(String imgURL, int index){
+		this.index=index; 
 		this.imgURL=imgURL; 
 	}
 	
+
 	public int getIndex() {
 		return index;
 	}
 
-	public void setCount(int count) {
-		this.index = count;
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
+
 
 	public String getImgURL() {
 		return imgURL;
@@ -26,8 +30,7 @@ public class Photo {
 		this.imgURL = imgURL;
 	}
 
-	int index; 
-	String imgURL; 
+	 
 	
 
 

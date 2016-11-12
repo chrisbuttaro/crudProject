@@ -9,7 +9,7 @@
 </head>
 <body>
 <h3>Photos</h3>
-<form action="GetNextPhoto.do" method="GET">
+<form action="GetNextPhoto.do" method="POST">
 	<button name="navigate" value="back">Back</button>
 	<button name="navigate" value="forward">Forward</button>
 </form>
@@ -41,6 +41,7 @@
 	
 	<input type="hidden" name="index" value="${photo.index}">
 	Enter New URL: <input type="text" name="URL"><br>
+	
 	<input type="submit">
 </form>
 

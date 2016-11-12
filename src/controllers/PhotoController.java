@@ -20,25 +20,26 @@ public class PhotoController {
 			System.out.println(navigate);
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("index.jsp");
-			try{
+			//try{
 				mv.addObject("photo", dao.getPhotobyIndex(navigate));
-			}
-			catch (Exception e){
-			    System.out.println("list empty");
-			}
+				
+			//}
+		//	catch (Exception e){
+			 //   System.out.println("list empty");
+			//}
 		
 			return mv;
 
 	}
 		
 		@RequestMapping("addPhoto.do")
-		  public ModelAndView addPhoto(Photo photo, @RequestParam("URL") String URL) {
-			
+		  public ModelAndView addPhoto(Photo photo, @RequestParam("URL") String URL, @RequestParam("index") String index) {
 			photo.setImgURL(URL);
-			dao.addPhoto(photo);
+			photo.setIndex(Integer.parseInt(index));
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("index.jsp");
-			mv.addObject("photo", photo);
+			
+			mv.addObject("photo", dao.addPhoto(photo));
 			return mv;
 
 }
