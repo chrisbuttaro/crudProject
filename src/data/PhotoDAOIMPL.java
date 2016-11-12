@@ -130,7 +130,6 @@ public class PhotoDAOIMPL implements PhotoDAO {
 		System.out.println(index);
 		p.setImgURL(URL);
 		photos.set(index, p);
-		this.index = index;
 
 		try {
 			
@@ -139,11 +138,11 @@ public class PhotoDAOIMPL implements PhotoDAO {
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		}
-		pw.close();
+		
 		for (Photo photo : photos) {
 			pw.write(photo.getImgURL() + ",");
 		}
-
+		pw.close();
 		return p;
 	}// updatePhoto
 

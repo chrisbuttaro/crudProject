@@ -23,8 +23,9 @@
 
 <c:choose>
     <c:when test="${! empty photo}">
-    <h3>${photo.index}</h3>
+    
       <img src= "${photo.imgURL}">
+      <h3>${photo.index}</h3>
       
        </c:when>
     <c:otherwise>
