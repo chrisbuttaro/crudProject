@@ -36,15 +36,13 @@ public class PhotoDAOIMPL implements PhotoDAO {
 	@PostConstruct
 	public void init() {
 		
-		
+		/* PHOTOLIST HOLDS THE IMAGE SOURCES  AND SIZE LIST HOLDS THIER WIDTH INFORMATION*/
 		
 		photoList= new File(wac.getServletContext().getRealPath("/WEB-INF/photoDir/photoList.csv")); 
 		sizeList= new File(wac.getServletContext().getRealPath("/WEB-INF/photoDir/sizeList.csv"));
 		sizePath=sizeList.getAbsolutePath(); 
-		
 		path=photoList.getAbsolutePath(); 
-		System.out.println("*************************PATH*********************");		
-		System.out.println(path);
+
 		
 
 
@@ -86,7 +84,7 @@ public class PhotoDAOIMPL implements PhotoDAO {
 		
 
 	
-	 int index=-1;
+	 int index=-1; //STARTS AT -1 SO UPON THE FIRST CLICK THE 0TH INDEX WILL LOAD
 	public Photo getPhotobyIndex(String navigate) {
 		
 		switch (navigate) {
@@ -94,14 +92,12 @@ public class PhotoDAOIMPL implements PhotoDAO {
 			index--;
 			break;
 		case "forward":
-			
 			index++;
 			
-		
 			break;
 		}
 			
-		if (index > photos.size() - 1) {
+		if (index > photos.size() - 1) {  //ENSURES LIST WILL LOOP
 			index = 0;
 		} else if (index < 0) {
 			index = photos.size() - 1;
@@ -111,45 +107,73 @@ public class PhotoDAOIMPL implements PhotoDAO {
 		return(photos.get(index));
 		
 	}
+	
+	
+public Photo getPhotoPassword(String password) {
+	
+	if (password.equals("obie")){ //IF THE PASSWORD MATCHES THE INDEX IS UPDATED
+		
+			index++;
+	}	
+		
+		return(photos.get(index));
+		
+	}
 
-	public Photo addPhoto(Photo p) {
+	public Photo addPhoto(Photo p) { //UPDATES THE INDEX OF THE IMAGE SOURCES AHEAD IN THE LIST, AND INSERTS A 
+									//NEW IMG SRC IN THE LIST
 		
 		for (Photo photo : photos) {
 			if(photo.getIndex()>=p.getIndex())
 				photo.setIndex(photo.getIndex()+1);
 			
 		}
-		photos.add(p.getIndex(), p);
+		photos.add(p.getIndex(), p); 
 		
 		
-		
-		
-		try {
+		try { 
 			
 			pw = new PrintWriter(path);
 			
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		}
-		for (Photo photo : photos) {
+		for (Photo photo : photos) {          //OVERWRITES PHOTOLIST.CSV INCLUDING THE ADDED IMG SRC
 			pw.write(photo.getImgURL() + ",");
 		}
 		pw.close();
+		
+		
+try {
+			
+		pw = new PrintWriter(sizePath);
+			
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		}
+		
+		for (Photo photo1 : photos) {         //OVERWRITES SIZELIST.CSV INCLUDING THE ADDED IMG SIZE
+			pw.write(photo1.getSize() + ",");
+		}
+		pw.close();
+		
 		return p; 
 	}
+	
+	
 
 	@Override
 	public void deletePhoto(int index) {
 
 		photos.remove(index);
 
-		for (Photo photo : photos) {
+		for (Photo photo : photos) {           //OVERWRITES PHOTOLIST.CSV EXCLUDING THE DELETED IMG SRC
 			pw.write(photo.getImgURL() + ",");
 		}
 		
 try {
 			
-			pw = new PrintWriter(sizePath);
+			pw = new PrintWriter(sizePath);  //OVERWRITES SIZELIST.CSV EXCLUDING DELETED IMG SIZE
 			
 		} catch (FileNotFoundException e) {
 			System.out.println(e);

@@ -6,7 +6,7 @@ public class Photo {
 	}
 	int index; 
 	private String imgURL;
-	private int size=400; 
+	private int size=400; //SETS DEFAULT IMG WIDTH
 	public Photo(String imgURL, int index){
 		this.index=index; 
 		this.imgURL=imgURL; 

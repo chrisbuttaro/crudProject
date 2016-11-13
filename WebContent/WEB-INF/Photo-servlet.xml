@@ -10,7 +10,7 @@
 
   <context:component-scan base-package="controllers"/>
   <mvc:annotation-driven />
-  <mvc:resources mapping="/bootstrap/**" location="/resources/" />
+  <mvc:resources mapping="/webjars/**" location="/webjars/" />
   <bean id="dao" class="data.PhotoDAOIMPL"/>
 	
 </beans>
