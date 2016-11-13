@@ -4,6 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+    rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Photos</title>
 </head>
@@ -12,12 +14,7 @@
 <form action="GetNextPhoto.do" method="POST">
 	<button name="navigate" value="back">Back</button>
 	<button name="navigate" value="forward">Forward</button>
-</form>
-
-
-
-<form action="deletePhoto.do" method="GET">
-	<button name="index" value="${photo.index}">Remove Image</button>
+	<button type="button" class="btn btn-success">Success</button>
 </form>
 
 
@@ -35,8 +32,6 @@
   
   </form>
 
-<a href="addPhoto.jsp">Add Image</a>
-
 <form action="size.do" method="GET">
 	Enter Image Width<br />
 	<input type="hidden" name="index" value="${photo.index}">
@@ -44,7 +39,6 @@
 	
 	<input type="submit">
 </form>
-
 
 <form action="updatePhoto.do" method="GET">
 	Edit Current Image<br />
@@ -54,6 +48,19 @@
 	
 	<input type="submit">
 </form>
+
+<a href="addPhoto.jsp">Add Image</a>
+
+<form action="deletePhoto.do" method="GET">
+	<button name="index" value="${photo.index}">Remove Image</button>
+</form>
+
+
+
+ <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
 
 </body>
 
