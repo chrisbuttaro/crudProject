@@ -9,4 +9,5 @@ public interface PhotoDAO {
 	public void deletePhoto(int index); 
 	public List<Photo> getPhotos(); 
 	public Photo updatePhoto(Photo p, String URL, int index);
+	public Photo setSize(int index, int size); 
 }

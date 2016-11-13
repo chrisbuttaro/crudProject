@@ -14,7 +14,7 @@
 	<button name="navigate" value="forward">Forward</button>
 </form>
 
-<a href="addPhoto.html">Add Image</a>
+
 
 <form action="deletePhoto.do" method="GET">
 	<button name="index" value="${photo.index}">Remove Image</button>
@@ -24,7 +24,7 @@
 <c:choose>
     <c:when test="${! empty photo}">
     
-      <img src= "${photo.imgURL}">
+      <img src= "${photo.imgURL}" width="${photo.size}">
       <h3>${photo.index}</h3>
       
        </c:when>
@@ -35,7 +35,16 @@
   
   </form>
 
-<a href="addPhoto.html">Add Image</a>
+<a href="addPhoto.jsp">Add Image</a>
+
+<form action="size.do" method="GET">
+	Enter Image Width<br />
+	<input type="hidden" name="index" value="${photo.index}">
+    <input type="text" name="size"><br>
+	
+	<input type="submit">
+</form>
+
 
 <form action="updatePhoto.do" method="GET">
 	Edit Current Image<br />

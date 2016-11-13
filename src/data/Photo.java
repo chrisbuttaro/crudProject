@@ -5,12 +5,24 @@ public class Photo {
 		
 	}
 	int index; 
-	String imgURL;
+	private String imgURL;
+	private int size=400; 
 	public Photo(String imgURL, int index){
 		this.index=index; 
 		this.imgURL=imgURL; 
+		
 	}
 	
+
+	public int getSize() {
+		return size;
+	}
+
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 
 	public int getIndex() {
 		return index;

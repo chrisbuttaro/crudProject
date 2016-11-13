@@ -1,8 +1,12 @@
 package controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,12 +37,12 @@ public class PhotoController {
 	}
 		
 		@RequestMapping("addPhoto.do")
-		  public ModelAndView addPhoto(Photo photo, @RequestParam("URL") String URL, @RequestParam("index") String index) {
+		  public ModelAndView addPhoto(Photo photo, @RequestParam("index") String index, @RequestParam("URL") String URL ) {
+			 
 			photo.setImgURL(URL);
 			photo.setIndex(Integer.parseInt(index));
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("index.jsp");
-			
 			mv.addObject("photo", dao.addPhoto(photo));
 			return mv;
 
@@ -62,6 +66,14 @@ public class PhotoController {
 			}
 			return mv;
 			}
+		
+		@RequestMapping("size.do")
+		  public ModelAndView sizePhoto(@RequestParam("index") String index, @RequestParam("size") String size) {
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("index.jsp");
+			mv.addObject("photo", dao.setSize(Integer.parseInt(index), Integer.parseInt(size)));
+			return mv;
+		}
 			
 		@RequestMapping("updatePhoto.do")
 		  public ModelAndView updatePhoto(Photo p, @RequestParam("URL") String URL, @RequestParam("index") String index) {
